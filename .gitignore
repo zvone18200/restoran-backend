@@ -1,0 +1,4 @@
+node_modules/
+restoran.db
+uploads/
+.env
