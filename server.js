@@ -274,16 +274,6 @@ app.post('/api/jela/:id/ocjene', (req, res) => {
   res.json({ success: true })
 })
 
-// Privremena ruta za kreiranje admina
-app.get('/setup-admin', async (req, res) => {
-  const postoji = db.prepare('SELECT id FROM korisnici WHERE email = ?').get('admin@restoran.com')
-  if (postoji) return res.json({ poruka: 'Admin već postoji!' })
-  
-  const hash = await bcrypt.hash('admin123', 10)
-  db.prepare('INSERT INTO korisnici (ime, email, lozinka) VALUES (?, ?, ?)').run('Admin', 'admin@restoran.com', hash)
-  res.json({ poruka: 'Admin kreiran! Email: admin@restoran.com, Lozinka: admin123' })
-})
-
 
 app.listen(PORT, () => {
   console.log(`✅ Server radi na http://localhost:${PORT}`);
